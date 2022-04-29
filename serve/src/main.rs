@@ -1,5 +1,8 @@
+use std::sync::atomic::AtomicUsize;
+
 use database::DbFairing;
 use rocket::fs::FileServer;
+use user::LoginTime;
 
 mod database;
 mod statistics;
@@ -19,6 +22,7 @@ fn index() -> &'static str {
 fn rocket() -> rocket::Rocket<rocket::Build> {
     rocket::build()
         .attach(DbFairing::with_name("database"))
+        .manage(LoginTime(AtomicUsize::new(0)))
         .mount("/", routes![index])
         .mount(
             "/user",

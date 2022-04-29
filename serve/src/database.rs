@@ -1,8 +1,8 @@
 use std::marker::PhantomData;
 
+use rocket::fairing::Fairing;
 use rocket::fairing::{self, Info, Kind};
 use rocket::log::private::error;
-use rocket::fairing::Fairing;
 use rocket::{Build, Rocket};
 use sqlx::{sqlite::SqlitePoolOptions, SqlitePool};
 
@@ -60,4 +60,3 @@ impl Fairing for DbFairing {
         }
     }
 }
-

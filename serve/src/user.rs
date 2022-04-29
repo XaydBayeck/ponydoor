@@ -1,16 +1,18 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    sync::atomic::{AtomicUsize, Ordering},
+};
 
 use rand::{distributions::Alphanumeric, thread_rng, Rng};
 use rocket::{
     http::{Cookie, CookieJar, Status},
     request::{FromRequest, Outcome},
-    response::status::{Custom, NotFound},
+    response::status::NotFound,
     serde::{json::Json, Deserialize, Serialize},
     Request, State,
 };
-use sqlx::pool;
 
-use crate::{database::Database, user};
+use crate::database::Database;
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 #[serde(crate = "rocket::serde")]
@@ -20,7 +22,7 @@ pub struct User {
     /// 昵称
     name: String,
     /// 头像
-    avatar: String,
+    avatar: Option<String>,
     /// 状态
     state: UserState,
     /// 帐号
@@ -98,15 +100,22 @@ pub async fn regist(regist: Json<Regist>, pool: &State<Database>) -> Result<(), 
     {
         Err(NotFound(String::from("account repeat")))
     } else {
-        match sqlx::query("insert into user (id,name,account,password) values (null, $1, $2, $3)")
-            .bind(&regist.name)
-            .bind(&regist.account)
-            .bind(&regist.password)
-            .execute(pool.db())
-            .await
+        // println!("{:?}", regist);
+        match sqlx::query(
+            "insert into user (id,name,account,state,password) values (null, $1, $2, $3, $4)",
+        )
+        .bind(&regist.name)
+        .bind(&regist.account)
+        .bind(&UserState::Active)
+        .bind(&regist.password)
+        .execute(pool.db())
+        .await
         {
             Ok(_) => Ok(()),
-            Err(_) => Err(NotFound(String::from("database has problem"))),
+            Err(e) => {
+                // eprintln!("{:?}", e);
+                Err(NotFound(String::from("database has problem")))
+            }
         }
     }
 }
@@ -118,24 +127,16 @@ pub struct Login {
     password: String,
 }
 
-pub struct LoginTime;
-
-#[async_trait]
-impl<'r> FromRequest<'r> for LoginTime {
-    type Error = NotFound<String>;
-
-    async fn from_request(request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
-        todo!()
-    }
-}
+pub struct LoginTime(pub(crate) AtomicUsize);
 
 /// 登陆并发放令牌
+// TODO: 添加对帐号是否已经登陆的检验
 #[post("/login", format = "json", data = "<login>")]
 pub async fn login(
     login: Json<Login>,
     pool: &State<Database>,
     jar: &CookieJar<'_>,
-    _time: LoginTime,
+    time: &State<LoginTime>,
 ) -> Result<(), NotFound<String>> {
     match sqlx::query_as::<_, Login>(
         "select account,password from user where account = $1 and password = $2",
@@ -159,7 +160,7 @@ pub async fn login(
                 .bind(&token)
                 .fetch_all(pool.db())
                 .await
-                .is_ok()
+                .is_err()
             {
                 token = token_birth();
             }
@@ -172,6 +173,7 @@ pub async fn login(
                 .await
             {
                 Ok(_) => {
+                    time.0.fetch_add(1, Ordering::Relaxed);
                     jar.add(Cookie::new("token", token));
                     Ok(())
                 }
@@ -199,10 +201,12 @@ impl<'r> FromRequest<'r> for TokenCheck {
             Outcome::Success(pool) => match request.cookies().get("token") {
                 Some(t) => {
                     let recive = t.value().to_string();
-                    if let Ok(token_check) = sqlx::query_as::<_, TokenCheck>(
-                        "slect token, account from tokens where token = $1",
-                    )
-                    .bind(recive)
+                    eprintln!("{:?}", &recive);
+
+                    if let Ok(token_check) = sqlx::query_as::<_, TokenCheck>(&format!(
+                        "select token, account from tokens where token = {:?}",
+                        &recive
+                    ))
                     .fetch_one(pool.db())
                     .await
                     {
@@ -245,7 +249,7 @@ pub async fn logout(
 pub async fn delete(
     account: String,
     pool: &State<Database>,
-    _token: TokenCheck,
+    token: TokenCheck,
     jar: &CookieJar<'_>,
 ) -> Result<(), NotFound<String>> {
     if let Ok(_) = sqlx::query("delet from user where account = $1 ")
@@ -253,8 +257,16 @@ pub async fn delete(
         .execute(pool.db())
         .await
     {
-        jar.remove(Cookie::named("token"));
-        Ok(())
+        if let Err(_) = sqlx::query("delet from tokens token = $1")
+            .bind(&token.token)
+            .execute(pool.db())
+            .await
+        {
+            Err(NotFound(String::from("Token is not in database.")))
+        } else {
+            jar.remove(Cookie::named("token"));
+            Ok(())
+        }
     } else {
         Err(NotFound(String::from("User is not exist!")))
     }
