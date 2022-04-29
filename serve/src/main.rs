@@ -2,8 +2,10 @@ use database::DbFairing;
 use rocket::fs::FileServer;
 
 mod database;
-mod user;
 mod statistics;
+mod user;
+
+use crate::user::{confirm, delete, login, logout, regist, user_info};
 
 #[macro_use]
 extern crate rocket;
@@ -14,9 +16,13 @@ fn index() -> &'static str {
 }
 
 #[launch]
-fn rocket() -> _ {
+fn rocket() -> rocket::Rocket<rocket::Build> {
     rocket::build()
         .attach(DbFairing::with_name("database"))
         .mount("/", routes![index])
+        .mount(
+            "/user",
+            routes![regist, login, logout, delete, confirm, user_info],
+        )
         .mount("/public", FileServer::from("public"))
 }
