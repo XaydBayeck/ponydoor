@@ -1,0 +1,10 @@
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/version_check-bf6ae18cbaff31d1.rmeta: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/version.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/channel.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/date.rs
+
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/libversion_check-bf6ae18cbaff31d1.rlib: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/version.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/channel.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/date.rs
+
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/version_check-bf6ae18cbaff31d1.d: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/version.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/channel.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/date.rs
+
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/lib.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/version.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/channel.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/version_check-0.9.4/src/date.rs:

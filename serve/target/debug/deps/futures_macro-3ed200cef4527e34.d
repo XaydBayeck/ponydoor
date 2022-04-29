@@ -1,0 +1,9 @@
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/libfutures_macro-3ed200cef4527e34.so: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/executor.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/join.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/select.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/stream_select.rs
+
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/futures_macro-3ed200cef4527e34.d: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/executor.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/join.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/select.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/stream_select.rs
+
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/lib.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/executor.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/join.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/select.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/futures-macro-0.3.21/src/stream_select.rs:

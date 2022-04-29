@@ -1,0 +1,10 @@
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/sqlformat-e67aacba6e257339.rmeta: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/formatter.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/indentation.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/inline_block.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/params.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/tokenizer.rs
+
+/home/sid/github/RustPj/ponydoor/serve/target/debug/deps/sqlformat-e67aacba6e257339.d: /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/lib.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/formatter.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/indentation.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/inline_block.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/params.rs /home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/tokenizer.rs
+
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/lib.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/formatter.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/indentation.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/inline_block.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/params.rs:
+/home/sid/.cargo/registry/src/mirrors.tuna.tsinghua.edu.cn-df7c3c540f42cdbd/sqlformat-0.1.8/src/tokenizer.rs:
