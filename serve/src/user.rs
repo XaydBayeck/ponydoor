@@ -5,7 +5,6 @@ use std::{
 
 use rand::{distributions::Alphanumeric, thread_rng, Rng};
 use rocket::{
-    futures::future::ok,
     http::{Cookie, CookieJar, Status},
     request::{FromRequest, Outcome},
     response::status::NotFound,

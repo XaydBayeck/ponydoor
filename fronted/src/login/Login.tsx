@@ -1,61 +1,52 @@
 import styles from './Login.module.css';
 import logo from '../logo.svg';
-import { createSignal } from 'solid-js';
+import { createSignal, For, Show } from 'solid-js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios'
+import Warnning from './Warnning';
+import InputGroup from './InputGroup';
 
-const [loginProps, setLoginProps] = createSignal({ account: "", password: "" });
+type States = "Login" | "Regist"
 
-export function Login() {
+export const [loginProps, setLoginProps] = createSignal({ account: "", password: "" });
+export const [name, setName] = createSignal("");
+export const [state, setState] = createSignal("Login" as States);
+
+export default function Login() {
+    const postLogin = () => {
+        axios.post('/user/login', loginProps())
+            .then((_r) => setWarning("false"))
+            .catch((err) => setWarning(err))
+    }
+
+    const postRegist = () => {
+        let regist = { ...loginProps(), name: name() };
+        axios.post('/user/regist', regist)
+            .then((_r) => setWarning("false"))
+            .catch((err) => setWarning(err))
+    }
+
+    const [warnning, setWarning] = createSignal("false");
+
     return (
         <div class={styles.Login}>
             <img src={logo} class={styles.logo} alt="logo" />
-            <Account />
-            {/* 检验用: {loginProps().account} */}
-            <Password />
-            <button class={styles.loginButton} type="submit">Login</button>
-        </div>
-    );
-}
-
-function Account() {
-    const changeAccount = (event: { currentTarget: HTMLInputElement }) =>
-        setLoginProps((prev) => {
-            return {
-                account: event.currentTarget?.value,
-                password: prev.password
-            }
-        });
-
-    return (
-        <div class={styles.Input}>
-            <span class={styles.icon}>
-                <i class="bi bi-person"></i>
-            </span>
-            <input type="text" name="account" id="account" onInput={changeAccount} />
-        </div>
-    );
-}
-
-function Password() {
-    let [show, setShow] = createSignal(false);
-
-    const changePassword = (event: { currentTarget: HTMLInputElement }) =>
-        setLoginProps((prev) => {
-            return {
-                account: prev.account,
-                password: event.currentTarget.value
-            }
-        });
-
-    return (
-        <div class={styles.Input}>
-            <span class={styles.icon}>
-                <i class="bi bi-shield"></i>
-            </span>
-            <input type={show() ? "text" : "password"} name="password" id="password" onInput={changePassword} />
-            <button class={styles.PasswordShow} onClick={() => setShow((prev) => !prev)}>
-                <i class={show() ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"} />
-            </button>
+            <Show when={warnning() != "false"}>
+                <Warnning warnningList={[warnning()]} />
+            </Show>
+            <InputGroup />
+            <div class={styles.ButtonGroup}>
+                {
+                    state() == "Login"
+                        ? <button class={styles.loginButton} type="submit" onClick={postLogin}>Login</button>
+                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Login"); setWarning("false"); }}>to Login</button>
+                }
+                {
+                    state() == "Regist"
+                        ? <button class={styles.loginButton} type="submit" onClick={postRegist}>Register</button>
+                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Regist"); setWarning("false"); }}>to Regist</button>
+                }
+            </div>
         </div>
     );
 }
