@@ -5,6 +5,7 @@ use std::{
 
 use rand::{distributions::Alphanumeric, thread_rng, Rng};
 use rocket::{
+    futures::future::ok,
     http::{Cookie, CookieJar, Status},
     request::{FromRequest, Outcome},
     response::status::NotFound,
@@ -147,6 +148,15 @@ pub async fn login(
     .await
     {
         Ok(_) => {
+            // 删除重复帐号的 token
+            sqlx::query("delete from tokens where account = $1")
+                .bind(&login.account)
+                .execute(pool.db())
+                .await
+                .is_err();
+
+            jar.remove(Cookie::named("token"));
+
             let token_birth = || {
                 thread_rng()
                     .sample_iter(&Alphanumeric)
@@ -177,7 +187,7 @@ pub async fn login(
                     jar.add(Cookie::new("token", token));
                     Ok(())
                 }
-                Err(e) => Err(NotFound(String::from(
+                Err(_e) => Err(NotFound(String::from(
                     "New token cannot be stored in database",
                 ))),
             }
@@ -309,4 +319,10 @@ pub async fn confirm(
     } else {
         Err(NotFound(String::from("User is not found!")))
     }
+}
+
+/// 确认用户是否已经登陆
+#[get("/login/check")]
+pub fn login_confirm(_token_check: TokenCheck) -> Result<(), NotFound<String>> {
+    Ok(())
 }
