@@ -29,3 +29,32 @@
     - TODO
 
 TODO
+
+## 使用方法
+确保安装了`Rust` nightly 版本编译器 `Cargo` 以及 `npm` 包管理器
+
+然后打开终端(建议在 Linux 操作系统下使用)
+```
+$git clone https://github.com/XaydBayeck/ponydoor.git
+
+$cd ponydoor/fronted
+
+$npm i
+
+$npm run build
+
+$cd ../serve
+
+$cargo run
+```
+
+你也许会看到:
+![2022-05-02-01-23-05.png](./2022-05-02_01-23-05.png "desktop")
+
+这说明服务器已经启动,打开浏览器地址栏输入`http://localhost:8000`按下回车
+你会看到:
+![login](./login.png "login")
+
+注册登陆以后你会看到:
+
+![after](./after.png "after")
