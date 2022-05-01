@@ -59,8 +59,6 @@
     border-radius: 0 10px 10px 0;
 }
 
-.icon {}
-
 .logo {
     animation: logo-spin infinite 20s linear;
     height: 20vmin;

@@ -8,7 +8,7 @@ mod database;
 mod statistics;
 mod user;
 
-use crate::user::{confirm, delete, login, login_confirm, logout, regist, user_info};
+use crate::user::{confirm, delete, login, login_confirm, logout, regist, user_info, update};
 
 #[macro_use]
 extern crate rocket;
@@ -44,7 +44,8 @@ fn rocket() -> rocket::Rocket<rocket::Build> {
                 delete,
                 confirm,
                 user_info,
-                login_confirm
+                login_confirm,
+                update
             ],
         )
         .mount("/assets", FileServer::from("public/assets"))

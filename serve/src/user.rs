@@ -24,7 +24,7 @@ pub struct User {
     /// 头像
     avatar: Option<String>,
     /// 状态
-    state: UserState,
+    state: String,
     /// 帐号
     account: String,
     /// 密码
@@ -47,30 +47,32 @@ pub struct DetailInfo {
     /// 地区
     zone: String,
     /// 生日
-    birth_day: chrono::NaiveDate,
+    // birthday: chrono::NaiveDate,
+    birthday: String,
     /// 血型
-    blood_type: BloodType,
+    bloodtype: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
+#[repr(i32)]
 pub enum BloodType {
-    A,
-    B,
-    AB,
-    O,
-    Other,
+    A = 0,
+    B = 1,
+    AB = 2,
+    O = 3,
+    Other = 4,
 }
 
-#[derive(Debug, Serialize, Deserialize, sqlx::Type)]
-#[serde(crate = "rocket::serde")]
-#[repr(i32)]
-pub enum UserState {
-    Active = 0,
-    Sleeping = 1,
-    Busy = 2,
-    Playing = 3,
-}
+// #[derive(Debug, Serialize, Deserialize, sqlx::Type)]
+// #[serde(crate = "rocket::serde")]
+// #[repr(i32)]
+// pub enum UserState {
+//     Active = 0,
+//     Sleeping = 1,
+//     Busy = 2,
+//     Playing = 3,
+// }
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 #[serde(crate = "rocket::serde")]
@@ -106,7 +108,7 @@ pub async fn regist(regist: Json<Regist>, pool: &State<Database>) -> Result<(), 
         )
         .bind(&regist.name)
         .bind(&regist.account)
-        .bind(&UserState::Active)
+        .bind("Active")
         .bind(&regist.password)
         .execute(pool.db())
         .await
@@ -137,16 +139,16 @@ pub async fn login(
     pool: &State<Database>,
     jar: &CookieJar<'_>,
     time: &State<LoginTime>,
-) -> Result<(), NotFound<String>> {
-    match sqlx::query_as::<_, Login>(
-        "select account,password from user where account = $1 and password = $2",
-    )
-    .bind(&login.account)
-    .bind(&login.password)
-    .fetch_one(pool.db())
-    .await
+) -> Result<Json<User>, NotFound<String>> {
+    println!("{:?}", &login);
+    match sqlx::query_as::<_, User>("select * from user where account = $1 and password = $2")
+        .bind(&login.account)
+        .bind(&login.password)
+        .fetch_one(pool.db())
+        .await
     {
-        Ok(_) => {
+        Ok(user) => {
+            println!("{:?}", &user);
             // 删除重复帐号的 token
             sqlx::query("delete from tokens where account = $1")
                 .bind(&login.account)
@@ -184,14 +186,17 @@ pub async fn login(
                 Ok(_) => {
                     time.0.fetch_add(1, Ordering::Relaxed);
                     jar.add(Cookie::new("token", token));
-                    Ok(())
+                    Ok(Json(user))
                 }
                 Err(_e) => Err(NotFound(String::from(
                     "New token cannot be stored in database",
                 ))),
             }
         }
-        Err(_) => Err(NotFound(String::from("User is not exist!"))),
+        Err(e) => {
+            eprintln!("{}", e);
+            Err(NotFound(String::from("User is not exist!")))
+        }
     }
 }
 
@@ -287,15 +292,19 @@ pub async fn user_info(
     token_check: TokenCheck,
     pool: &State<Database>,
 ) -> Result<Json<User>, NotFound<String>> {
-    if let Ok(mut user) = sqlx::query_as::<_, User>("select * from user where account = $1")
+    match sqlx::query_as::<_, User>("select * from user where account = $1")
         .bind(token_check.account)
         .fetch_one(pool.db())
         .await
     {
-        user.password = String::new();
-        Ok(Json(user))
-    } else {
-        Err(NotFound(String::from("Not found your information!")))
+        Ok(mut user) => {
+            user.password = String::new();
+            Ok(Json(user))
+        }
+        Err(e) => {
+            eprintln!("{}", e);
+            Err(NotFound(String::from("Not found your information!")))
+        }
     }
 }
 
@@ -324,4 +333,41 @@ pub async fn confirm(
 #[get("/login/check")]
 pub fn login_confirm(_token_check: TokenCheck) -> Result<(), NotFound<String>> {
     Ok(())
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Update {
+    id: i32,
+    key: String,
+    value: String,
+}
+
+/// 修改用户数据
+#[post("/update", format = "json", data = "<data>")]
+pub async fn update(
+    data: Json<Update>,
+    token_check: TokenCheck,
+    pool: &State<Database>,
+) -> Result<(), NotFound<String>> {
+    let sql = format!(
+        "update user set {}=$1 where id=$2 and account=$3",
+        &data.key
+    );
+    match sqlx::query(&sql)
+        .bind(&data.value)
+        .bind(&data.id)
+        .bind(&token_check.account)
+        .execute(pool.db())
+        .await
+    {
+        Ok(_) => Ok(()),
+        Err(e) => match e {
+            sqlx::Error::RowNotFound => Err(NotFound(String::from("Account is not exists!"))),
+            sqlx::Error::ColumnNotFound(c) => {
+                Err(NotFound(format!("key:{} is not exists", &data.key)))
+            }
+            _ => Err(NotFound(String::from("Database has Error!"))),
+        },
+    }
 }

@@ -1,0 +1,147 @@
+.UserHome {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+}
+
+.Sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 100px;
+    background-color: bisque;
+}
+
+.SideButton {
+    font-size: 40px;
+    padding: 40px 20px;
+}
+
+.ActiveSideButton {
+    background-color: rgb(93, 190, 161);
+}
+
+.HomeBody {
+    border-color: bisque;
+    border-width: 5px;
+    border-style: solid;
+    width: 60vh;
+    height: 600px;
+    padding: 100px;
+    color: bisque;
+}
+
+.BaseInfo {
+    font-size: 30px;
+    height: 100%;
+}
+
+.Title {
+    border-top: 2px solid bisque;
+    border-bottom: 2px solid bisque;
+}
+
+/* .BaseInfo>div:first-child { height: 100%;
+} */
+
+.AvatarBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Avatar {
+    border-radius: 50%;
+    border: 5px solid bisque;
+    background-color: white;
+    margin: 20px;
+}
+
+.InfoShow>span {
+    border: 2px solid bisque;
+}
+
+.InfoShow {
+    margin: 10px;
+    font-size: 30px;
+}
+
+.InfoShow>span:last-child {
+    border-radius: 0 50px 50px 0;
+    padding-right: 30px;
+    padding-left: 10px;
+}
+
+.InfoShow>span:first-child {
+    background-color: bisque;
+    color: #43726e;
+    border-radius: 50px 0 0 50px;
+    padding-left: 30px;
+    padding-right: 10px;
+}
+
+.StateSelect>select {
+    background: none;
+    border: 2px solid bisque;
+    font-size: 30px;
+    color: bisque;
+    margin: 10px;
+}
+
+.Infor {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.AttrInput {
+    color: bisque;
+    font-size: 30px;
+    text-align: center;
+    border-bottom: 2px solid bisque;
+    margin: 10px;
+    padding-top: 2px;
+}
+
+.AttrInput:hover {
+    padding-top: 0;
+    border-top: 2px solid bisque;
+}
+
+.MapAttrInput {
+    color: bisque;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 2px solid bisque;
+    margin: 10px;
+    padding-top: 2px;
+}
+
+.MapAttrInput:hover {
+    padding-top: 0;
+    border-top: 2px solid bisque;
+}
+
+.MMButton>button {
+    font-size: 30px;
+    background-color: bisque;
+    padding: 0 10px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.Submit {
+    font-size: 30px;
+    background-color: bisque;
+    padding: 0 10px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.InputGroup {
+    display: flex;
+    flex-direction: row;
+}
