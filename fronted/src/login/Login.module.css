@@ -1,13 +1,63 @@
-.Login {}
-
-.Input {}
-
-.InputGroup {
+.Login {
+    background-color: antiquewhite;
+    height: 500px;
+    width: 400px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    border-radius: 5%;
+    margin-top: 10%;
 }
 
-.loginButton {}
+.Warnning {
+    background-color: rgb(37, 133, 117);
+    color: rgb(253, 218, 152);
+    margin: 0 50px 0 50px;
+    padding: 10px 0 10px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Warnning>ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.ButtonGroup {
+    padding: 10px;
+}
+
+.loginButton {
+    font-size: 30px;
+    background-color: rgb(103, 185, 154);
+    padding: 12px;
+}
+
+.loginButton:hover {
+    background-color: rgb(140, 236, 199);
+}
+
+.UntouchButton {
+    font-size: 30px;
+    background-color: rgb(67, 139, 130);
+    padding: 12px;
+}
+
+.UntouchButton:hover {
+    background-color: rgb(125, 177, 171);
+}
+
+.ButtonGroup>*:nth-child(1) {
+    border-radius: 10px 0 0 10px;
+}
+
+.ButtonGroup>*:nth-child(2) {
+    border-radius: 0 10px 10px 0;
+}
 
 .icon {}
 
@@ -15,6 +65,7 @@
     animation: logo-spin infinite 20s linear;
     height: 20vmin;
     pointer-events: none;
+    padding: 20px;
 }
 
 @keyframes logo-spin {

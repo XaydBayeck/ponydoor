@@ -1,6 +1,6 @@
 import { createSignal, Show } from 'solid-js';
 import { setLoginProps, setName, state } from './Login';
-import styles from './Login.module.css';
+import styles from './InputGroup.module.css';
 
 export default function InputGroup() {
     const changeName = (event: { currentTarget: HTMLInputElement }) =>
@@ -55,10 +55,10 @@ export default function InputGroup() {
                     </div>
                 </Show>
                 <div class={styles.Input}>
-                    <input type="text" name="name" id="name" onInput={changeAccount} />
+                    <input type="text" name="account" id="account" onInput={changeAccount} />
                 </div>
                 <div class={styles.Input}>
-                    <input type="text" name="name" id="name" onInput={changePassword} />
+                    <input type={show() ? "text" : "password"} name="password" id="password" onInput={changePassword} />
                     <button class={styles.PasswordShow} onClick={() => setShow((prev) => !prev)}>
                         <i class={show() ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"} />
                     </button>

@@ -1,5 +1,14 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-color: #43726e;
+}
+
+.MainBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
@@ -8,15 +17,30 @@
   pointer-events: none;
 }
 
-.header {
+.Navbar {
   background-color: #282c34;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.Navbar>button:first-child {
+  border-right: 1px solid white;
+}
+
+.Navbar>button {
+  color: white;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.Navbar>button:hover {
+  background-color: white;
+  color: #282c34;
 }
 
 .link {
@@ -27,6 +51,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

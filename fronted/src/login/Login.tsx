@@ -32,19 +32,19 @@ export default function Login() {
         <div class={styles.Login}>
             <img src={logo} class={styles.logo} alt="logo" />
             <Show when={warnning() != "false"}>
-                <Warnning warnningList={[warnning()]} />
+                <Warnning warnningList={[warnning(), "test segments"]} />
             </Show>
             <InputGroup />
             <div class={styles.ButtonGroup}>
                 {
                     state() == "Login"
                         ? <button class={styles.loginButton} type="submit" onClick={postLogin}>Login</button>
-                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Login"); setWarning("false"); }}>to Login</button>
+                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Login"); setWarning("false"); }}>Login</button>
                 }
                 {
                     state() == "Regist"
-                        ? <button class={styles.loginButton} type="submit" onClick={postRegist}>Register</button>
-                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Regist"); setWarning("false"); }}>to Regist</button>
+                        ? <button class={styles.loginButton} type="submit" onClick={postRegist}>Regist</button>
+                        : <button class={styles.UntouchButton} type="submit" onClick={() => { setState("Regist"); setWarning("false"); }}>Regist</button>
                 }
             </div>
         </div>
